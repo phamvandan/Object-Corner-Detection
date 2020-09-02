@@ -1,0 +1,71 @@
+data_dir: /home/hisiter/working/CMND/Centernet_custom_v3/data
+dataset:
+  flip: 0.5
+  keep_res: false
+  label_name:
+  - corner
+  - qh
+  max_obj: 100
+  mean:
+  - 0.408
+  - 0.447
+  - 0.47
+  name: cmnd
+  no_color_aug: false
+  not_rand_crop: true
+  num_classes: 2
+  scale: 0.4
+  shift: 0.1
+  std:
+  - 0.289
+  - 0.274
+  - 0.278
+debug_dir: /home/hisiter/working/CMND/Centernet_custom_v3/exp/base_detect/debug
+exp_dir: /home/hisiter/working/CMND/Centernet_custom_v3/exp
+exp_id: base_detect
+gpu_str: '-1'
+gpus:
+- -1
+model:
+  arch: dla_34
+  down_ratio: 4
+  head_conv: 256
+  heads:
+    hm: 2
+    reg: 2
+  input_h: 512
+  input_w: 512
+  output_h: 128
+  output_w: 128
+  pad: 31
+predictor:
+  fix_res: true
+  max_obj_predict: 20
+  scale: 1.0
+  threshold: 0.25
+  weight: /home/hisiter/working/CMND/Centernet_custom_v3/weights/model_cmnd_best.pth
+root_dir: /home/hisiter/working/CMND/Centernet_custom_v3
+save_dir: /home/hisiter/working/CMND/Centernet_custom_v3/exp/base_detect
+train:
+  batch_size: 1
+  chunk_sizes:
+  - 1
+  debug: false
+  hide_data_time: false
+  hm_weight: 1
+  lr: 0.000125
+  lr_step: 90,120
+  master_batch_size: 1
+  metric: loss
+  not_cuda_benchmark: true
+  num_epochs: 140
+  num_iters: -1
+  num_stacks: 1
+  num_workers: 4
+  off_weight: 1
+  print_iter: true
+  reg_loss: l1
+  resume_path: ''
+  save_all: false
+  seed: 317
+  val_intervals: 5
