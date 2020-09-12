@@ -48,10 +48,10 @@ class Trainer(object):
         self.loss_stats, self.loss = self._get_losses(config)
         self.model_with_loss = ModelWithLoss(self.model, self.loss)
 
-        if len(self.gpus) == 1 and self.gpus[0] >= 0:
-            self.device = torch.device('cuda:{}'.format(self.gpus[0]))
-        else:
-            self.device = torch.device('cuda' if torch.cuda.is_available() and self.gpu_str != '-1' else 'cpu')
+        if len(self.gpus) == 1 and self.gpu_str != '-1':
+            torch.cuda.set_device(int(self.gpus[0]))
+        self.device = torch.device('cuda' if torch.cuda.is_available() and self.gpu_str != '-1' else 'cpu')
+
         self.set_device(self.gpus, self.chunk_sizes, self.device)
 
         self.start_epoch = 0

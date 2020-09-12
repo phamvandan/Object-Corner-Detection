@@ -34,8 +34,11 @@ class Cfg(dict):
         config['model']['output_h'] = config['model']['input_h'] // config['model']['down_ratio']
         config['model']['output_w'] = config['model']['input_w'] // config['model']['down_ratio']
         config['gpu_str'] = config['gpus']
+
         config['gpus'] = [int(gpu) for gpu in config['gpus'].split(',')]
         config['gpus'] = [i for i in config['gpus']] if config['gpus'][0] >=0 else [-1]
+        if config['gpus'] != '-1':
+            os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(str(x) for x in config['gpus'])
 
         if config['train']['master_batch_size'] == -1:
             config['train']['master_batch_size'] = config['train']['batch_size'] // len(config['gpus'])

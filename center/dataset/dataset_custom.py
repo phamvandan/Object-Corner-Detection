@@ -71,7 +71,7 @@ class DATASET_CUSTOM(data.Dataset):
                                     A.HorizontalFlip(p=0.5),    #OK
                                     A.ShiftScaleRotate(shift_limit=[0.1, 0.1], scale_limit=[0,0], rotate_limit=[-45, 45], p=0.5),    #OK
                                     A.Downscale(scale_min=0.1, scale_max=0.2, p=0.3),      # OK
-                                    A.CoarseDropout(max_holes=5, max_height=100, max_width=100, min_holes=3, min_height=64, min_width=64, p=0.5),
+                                    # A.CoarseDropout(max_holes=5, max_height=100, max_width=100, min_holes=3, min_height=64, min_width=64, p=0.5),   # error
                                     A.CLAHE(p=0.5),
                                     A.Resize(height=self.input_h, width=self.input_w, interpolation=cv2.INTER_LINEAR, always_apply=True),
                                     A.Normalize(mean=self.mean, std=self.std, always_apply=True)
@@ -99,7 +99,7 @@ class DATASET_CUSTOM(data.Dataset):
     return float("{:.2f}".format(x))
 
   def _cocobox_to_center(self, box):
-      center = np.array([box[0] + box[2] / 2, box[1] + box[3] / 2], dtype=np.float32)  # [x_center, y_center]
+      center = np.array([box[0] + box[2] // 2, box[1] + box[3] // 2], dtype=np.uint8)  # [x_center, y_center]
 
       return center
 
@@ -125,6 +125,7 @@ class DATASET_CUSTOM(data.Dataset):
           keypoint = self._cocobox_to_center(ann['bbox'])
           keypoints.append(keypoint)
           cls_ids.append(int(self.cat_ids[ann['category_id']]))
+          # cls_ids.append(0)           # if your dataset have only one lable
 
       img = cv2.imread(img_path)  # BGR
       img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)

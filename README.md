@@ -12,13 +12,20 @@ Note:
 
 Keywords: Vietnamese License Plate Detection, ID Vietnamese Detection
 ## 1. Set up environment and dependent package 
-- At root project, run:  
+- Step 1: Set up conda environment:
 ```bash
-sh setup.sh
-
+conda env create -f environment.yml
 conda activate py36_torch1.4
 ```
+- Step 2: Build DCNv2:
 
+```bash
+sh build_dcnv2
+```
+**Note** 
+
+    * Build successful if output have line ***Zero offset passed***
+    * If have any error, try downgrade cudatoolkit  
 ## 2. Dataset format 
 - Prepare custom dataset: [DATA.md](https://github.com/hisiter97/Object-Corner-Detection/blob/master/data/DATA.md)
 - Format data: COCO
