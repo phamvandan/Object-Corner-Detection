@@ -26,8 +26,8 @@ sh build_dcnv2
 ```
 **Note** 
 
-    * Build successful if output have line ***Zero offset passed***
-    * If have any error, try downgrade cudatoolkit  
+    * Build successfully if the output has line ***Zero offset passed*** or ***Passed gradient***
+    * If there is any error, try downgrade cudatoolkit  
 ## 2. Dataset format 
 - Prepare custom dataset: [DATA.md](https://github.com/hisiter97/Object-Corner-Detection/blob/master/data/DATA.md)
 - Format data: COCO
