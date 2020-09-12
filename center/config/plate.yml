@@ -56,7 +56,7 @@ train:
 
 
 predictor:
-  weight: "/home/hisiter/working/CMND/Centernet_custom_v3/weights/model_plate.pth"
+  weight: "/home/hisiter/working/CMND/Centernet_custom_v3/weights/model_last_210_v3.pth"
   max_obj_predict: 20
   scale: 1.0
   threshold: 0.25

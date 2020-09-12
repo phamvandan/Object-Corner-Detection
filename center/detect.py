@@ -137,7 +137,7 @@ if __name__ == "__main__":
     print(opt)
     config = Cfg.load_config_from_file('/home/hisiter/working/CMND/Centernet_custom_v3/center/config/plate.yml')
     model = CENTER_MODEL(config, opt)
-    paths = glob.glob("/home/hisiter/working/CMND/Centernet_custom_v3/img_test/3.png")
+    paths = glob.glob("/home/hisiter/working/CMND/Centernet_custom_v3/img_test/license/2_2.png")
     for path in paths:
     #img_path = "img_test/511.jpg"
         img = cv2.imread(path)
