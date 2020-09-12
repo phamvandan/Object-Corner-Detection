@@ -22,7 +22,7 @@ conda activate py36_torch1.4
 - Step 2: Build DCNv2:
 
 ```bash
-sh build_dcnv2
+sh build_dcnv2.sh
 ```
 **Note** 
 
