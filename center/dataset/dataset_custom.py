@@ -34,7 +34,7 @@ class DATASET_CUSTOM(data.Dataset):
 
     self.annot_path = os.path.join(
           self.data_dir, 'annotations',
-          '{}_{}.json').format(split, config['dataset']['dataset_name'])
+          '{}.json').format(split)
     # print(self.data_dir)
 
     self.class_name = ['__background__'] + config['dataset']['label_name']
