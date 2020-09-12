@@ -134,7 +134,7 @@ class CENTER_MODEL(object):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=str, default='./config/plate.yml')
-    parser.add_argument("--image_path", type=str)
+    parser.add_argument("--image_path", type=str, default='../img_test/license/16.jpg')
     args = parser.parse_args()
     config = Cfg.load_config_from_file(args.config)
     print(config)

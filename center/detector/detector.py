@@ -7,7 +7,7 @@ import numpy as np
 import torch
 
 
-from utils.image import get_affine_transform
+from utils.heatmap import get_affine_transform
 from utils.post_process import point_post_process
 
 class BaseDetector(object):

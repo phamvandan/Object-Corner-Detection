@@ -1,6 +1,17 @@
-## Object-Corner-Detection: Crop object from four corner
-~ By Hisiter-HUST ~
+## Object-Corner-Detection: Crop object from four corners
+~ By Hisiter-HUST ~ 
 
+![demo_1](demo/result_1.png)
+
+
+Note:
+- This repository can apply to:
+  + License Plate Detection 
+  + ID Detection 
+  + ...
+
+
+Keywords: Vietnamese License 
 ## 1. Set up environment and dependent package 
 - At root project, run:  
 ```bash
@@ -40,3 +51,7 @@ cd center
 python detect.py --config config/plate.yml --image_path ../img_test/plate.jpg 
 ```
 
+## 5. DEMO 
+![demo_1](demo/result_1.png)
+
+![demo_2](demo/result_2.png)
