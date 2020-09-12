@@ -7,7 +7,6 @@ import torch
 
 from models.model import load_model, create_model
 from detector.detector import BaseDetector
-from utils.opts import opts
 from models.decode import point_decode
 import cv2
 import numpy as np
@@ -17,13 +16,12 @@ from utils.config import Cfg
 from utils.debugger import Debugger
 
 class CENTER_MODEL(object):
-    def __init__(self, config, opt):
-        self.opt = opt
+    def __init__(self, config):
 
         self.weight_path = config['predictor']['weight']
         self.scale = config['predictor']['scale']
         self.threshold = config['predictor']['threshold']
-        self.max_obj_predict = config['predictor']['max_obj_predict']
+        self.max_obj_predict = config['dataset']['max_object']
         self.num_classes = config['dataset']['num_classes']
         self.arch = config['model']['arch']
         self.heads = config['model']['heads']
@@ -133,10 +131,9 @@ class CENTER_MODEL(object):
         return warped
 
 if __name__ == "__main__":
-    opt = opts().init()
-    print(opt)
     config = Cfg.load_config_from_file('/home/hisiter/working/CMND/Centernet_custom_v3/center/config/plate.yml')
-    model = CENTER_MODEL(config, opt)
+    print(config)
+    model = CENTER_MODEL(config)
     paths = glob.glob("/home/hisiter/working/CMND/Centernet_custom_v3/img_test/license/2_2.png")
     for path in paths:
     #img_path = "img_test/511.jpg"

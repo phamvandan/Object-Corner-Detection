@@ -67,9 +67,9 @@ class Trainer(object):
 
         self.val_loader = torch.utils.data.DataLoader(
             DATASET_CUSTOM(config, split='val'),
-            batch_size=1,
+            batch_size=self.batch_size,
             shuffle=False,
-            num_workers=1,
+            num_workers=self.num_workers,
             pin_memory=True
         )
 

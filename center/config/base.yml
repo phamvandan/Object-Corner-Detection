@@ -3,19 +3,14 @@ exp_id: 'base_detect'
 
 
 dataset:
-  name: 'cmnd'
+  data_dir: './data'
+  dataset_name: 'cmnd'
   num_classes: &num_classes 2
   label_name: ['corner', 'qh']
   mean: [0.408, 0.447, 0.470]
   std: [0.289, 0.274, 0.278]
-  keep_res: False
-  not_rand_crop: True
-  scale: 0.4
-  shift: 0.1
-  flip: 0.5
-  no_color_aug: False
-  max_obj: 100
-
+  max_object: 100
+  radius: 6
 
 
 model:
@@ -57,7 +52,6 @@ train:
 
 predictor:
   weight: "/home/hisiter/working/CMND/Centernet_custom_v3/weights/model_cmnd_best.pth"
-  max_obj_predict: 20
   scale: 1.0
   threshold: 0.25
   fix_res: True

@@ -15,7 +15,7 @@ class BaseDetector(object):
 
         self.mean = np.array(config['dataset']['mean'], dtype=np.float32).reshape(1, 1, 3)
         self.std = np.array(config['dataset']['std'], dtype=np.float32).reshape(1, 1, 3)
-        self.max_per_image = config['predictor']['max_obj_predict']
+        self.max_per_image = config['dataset']['max_object']
         self.num_classes = config['dataset']['num_classes']
         self.input_h = config['model']['input_h']
         self.input_w = config['model']['input_w']

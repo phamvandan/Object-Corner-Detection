@@ -3,7 +3,6 @@ from __future__ import division
 from __future__ import print_function
 import pycocotools.coco as coco
 
-
 import torch.utils.data as data
 import numpy as np
 import cv2
@@ -21,33 +20,26 @@ class DATASET_CUSTOM(data.Dataset):
     :param split: train/val
     """
     super(DATASET_CUSTOM, self).__init__()
-    self.data_dir = os.path.join(config['data_dir'], config['dataset']['name'])
-    self.img_dir = os.path.join(self.data_dir, 'images'.format(split))
-    self.not_rand_crop = config['dataset']['not_rand_crop']
-    self.keep_res = config['dataset']['keep_res']
+    self.data_dir = os.path.join(config['data_dir'], config['dataset']['dataset_name'])
+    self.img_dir = os.path.join(self.data_dir, 'images')
     self.input_h = config['model']['input_h']
     self.input_w = config['model']['input_h']
     self.pad = config['model']['pad']
-    self.scale = config['dataset']['scale']
-    self.shift = config['dataset']['shift']
-    self.flip = config['dataset']['flip']
     self.down_ratio = config['model']['down_ratio']
-    self.no_color_aug = config['dataset']['no_color_aug']
-    self.debug = config['train']['debug']
     self.mean = config['dataset']['mean']
     self.std = config['dataset']['std']
-    self.max_objs = config['dataset']['max_obj']
+    self.max_objs = config['dataset']['max_object']
     self.num_classes = config['dataset']['num_classes']
+    self.radius = config['dataset']['radius']
 
     self.annot_path = os.path.join(
           self.data_dir, 'annotations',
-          '{}_cmnd.json').format(split)
+          '{}_{}.json').format(split, config['dataset']['dataset_name'])
     # print(self.data_dir)
 
-    self.class_name = [
-      '__background__', 'corner', 'quochuy']
-    self._valid_ids = [1, 2]
-    self.cat_ids = {v: i for i, v in enumerate(self._valid_ids)}
+    self.class_name = ['__background__'] + config['dataset']['label_name']
+    self._valid_ids = [_id for _id in range(1, self.num_classes+1)]    # [1,2,..self.num_classes]
+    self.cat_ids = {v: i for i, v in enumerate(self._valid_ids)}        # {1:0,
 
     self.split = split
 
@@ -84,7 +76,7 @@ class DATASET_CUSTOM(data.Dataset):
                                     A.Resize(height=self.input_h, width=self.input_w, interpolation=cv2.INTER_LINEAR, always_apply=True),
                                     A.Normalize(mean=self.mean, std=self.std, always_apply=True)
                                 ],
-                                keypoint_params=A.KeypointParams(format='xy')
+                                keypoint_params=A.KeypointParams(format='xy', label_fields=['class_labels'])
     )
 
     self.transform_heatmap = A.Compose(
@@ -138,28 +130,37 @@ class DATASET_CUSTOM(data.Dataset):
       img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
       if self.split == 'train':
-        inp, resized_keypoints = self.transform_train(image=img, keypoints=keypoints)
+         # Resolve loose keypoint when transform
+         res = self.transform_train(image=img, keypoints=keypoints, class_labels=cls_ids)
+         inp, resized_keypoints, resized_labels = res['image'], res['keypoints'], res['class_labels']
+         if len(resized_keypoints) != len(keypoints):
+             cls_ids = []
+             for k in range(len(resized_keypoints)):
+                 cls_ids.append(resized_labels[k])
+
       else:
-        inp, resized_keypoints = self.transform_test(image=img, keypoints=keypoints)
-      inp = inp.transpose(2, 0, 1)   # input image
+         res = self.transform_test(image=img, keypoints=keypoints)
+         inp, resized_keypoints = res['image'], res['keypoints']
+
 
       # Create heatmap
-      _, heatmap_keypoints = self.transform_heatmap(image=inp, keypoints=resized_keypoints)
+      res = self.transform_heatmap(image=inp, keypoints=resized_keypoints)
+      heatmap_keypoints = res['keypoints']
 
       hm = np.zeros((self.num_classes, self.output_h, self.output_w), dtype=np.float32)
       reg = np.zeros((self.max_objs, 2), dtype=np.float32)
       ind = np.zeros((self.max_objs), dtype=np.int64)
       reg_mask = np.zeros((self.max_objs), dtype=np.uint8)
-      for k in range(num_objs):
+      for k in range(heatmap_keypoints):
           cls_id = cls_ids[k]
-          radius = 6
-          ct = heatmap_keypoints[k]  # center
+          ct = np.array(heatmap_keypoints[k])  # center
           ct_int = ct.astype(np.int32)  # center integer
-          draw_umich_gaussian(hm[cls_id], ct_int, radius)
+          draw_umich_gaussian(hm[cls_id], ct_int, self.radius)
           ind[k] = ct_int[1] * self.output_w + ct_int[0]
           reg[k] = ct - ct_int
           reg_mask[k] = 1
 
+      inp = inp.transpose(2, 0, 1)  # input image
       ret = {'input': inp, 'hm': hm, 'reg_mask': reg_mask, 'ind': ind, 'reg': reg}
 
       return ret

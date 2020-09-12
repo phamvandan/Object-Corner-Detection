@@ -8,15 +8,16 @@ class Cfg(dict):
         self.__dict__ = self
 
     @staticmethod
-    def load_config_from_file(fpath):
+    def load_config_from_file(fpath, base_config_path="./config/base.yml"):
         if not os.path.exists(fpath):
             print("Not exists config path")
             return None
+
         with open(fpath, encoding='utf-8') as f:
             config =yaml.safe_load(f)
 
-        print(type(config['gpus']))
         config = Cfg.update_config(config)
+
         return config
 
     def save(self, f_out_path):
