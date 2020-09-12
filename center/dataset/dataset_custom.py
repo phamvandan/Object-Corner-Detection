@@ -69,7 +69,7 @@ class DATASET_CUSTOM(data.Dataset):
                                             A.NoOp()
                                         ]),
                                     A.HorizontalFlip(p=0.5),    #OK
-                                    A.ShiftScaleRotate(shift_limit=[0.1, 0.1], scale_limit=[0,0], rotate_limit=[-45, 45], p=0.5),    #OK
+                                    A.ShiftScaleRotate(shift_limit=[0.1, 0.1], scale_limit=[0,0], rotate_limit=[-45, 45], p=0.5, border_mode=cv2.BORDER_CONSTANT, value=(255,255,255)),    #OK
                                     A.Downscale(scale_min=0.1, scale_max=0.2, p=0.3),      # OK
                                     # A.CoarseDropout(max_holes=5, max_height=100, max_width=100, min_holes=3, min_height=64, min_width=64, p=0.5),   # error
                                     A.CLAHE(p=0.5),

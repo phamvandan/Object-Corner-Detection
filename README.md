@@ -1,5 +1,5 @@
 ## Object-Corner-Detection: Crop an object from four corners
-***Idea***: Corner as keypoint, a Centernet modify version \
+***Idea***: Corners as keypoints, a Centernet modify version \
 ~ By Hisiter-HUST ~ 
 
 ![demo_1](demo/result_1.png)
