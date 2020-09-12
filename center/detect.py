@@ -36,7 +36,6 @@ class CENTER_MODEL(object):
         self.model.eval()
 
         self.dt = BaseDetector(config)
-        print(config)
         self.debugger = Debugger(num_classes=self.num_classes)
 
 
@@ -57,11 +56,7 @@ class CENTER_MODEL(object):
             output = self.model(image)[-1]
             print("Time predict: ", time.time() - start)
             hm = output['hm'].sigmoid_()
-
-            # color_hp = self.debugger.gen_colormap()
-
             reg = output['reg']
-
             dets = point_decode(hm, reg=reg, K=self.max_obj_predict)
 
         dets = self.dt.post_process(dets, meta)
@@ -69,25 +64,21 @@ class CENTER_MODEL(object):
         results = self.dt.merge_outputs(dets)
 
         list_center = []
-        # list_center_label = []
         for j in range(1, self.num_classes + 1):
             for bbox in results[j]:
                 if bbox[2] >= self.threshold:
                     x_center, y_center = max(int(bbox[0]), 0), max(0, int(bbox[1]))
-                    # list_center_label.append([[x_center, y_center], j])  # x, y ,label_id
                     list_center.append([x_center, y_center])
-            break
-        # print(list_center)
-        print(list_center)
+
         img_draw = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         colors = {'red':(255,0,0)}
         for center in list_center:
             img_draw = cv2.circle(img_draw, (center[0], center[1]), radius=8, color=colors['red'], thickness=2)
 
-        plt.imshow(img_draw)
-        plt.show()
+        # plt.imshow(img_draw)
+        # plt.show()
 
-        if (len(list_center) == 4):
+        if (len(list_center) >= 4):
             points = self.order_points(np.array(list_center[:4]))
         else:
             print("Cannot detect 4 corners !!!, Number of conners detected was ", len(list_center))
@@ -133,8 +124,8 @@ class CENTER_MODEL(object):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=str, default='./config/plate.yml')
-    parser.add_argument("--image_path", type=str, default='../img_test/license/16.jpg')
+    parser.add_argument("--config", type=str, default='center/config/cmnd.yml')
+    parser.add_argument("--image_path", type=str, default='./img_test/1.jpg')
     args = parser.parse_args()
     config = Cfg.load_config_from_file(args.config)
     print(config)

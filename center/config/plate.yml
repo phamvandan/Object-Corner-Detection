@@ -3,8 +3,7 @@ exp_id: 'base_detect'
 
 
 dataset:
-  data_dir: 'data'            # $PROJECT_ROOT/data/
-  dataset_name: 'plate'       # $PROJECT_ROOT/data/plate
+  data_dir: '../data/plate'
   num_classes: &num_classes 1
   label_name: ['corner']
   mean: [0.408, 0.447, 0.470]
@@ -51,7 +50,7 @@ train:
 
 
 predictor:
-  weight: "/home/hisiter/working/CMND/Centernet_custom_v3/weights/model_last_210_v3.pth"
+  weight: "../weights/model_last_210_v3.pth"
   scale: 1.0
   threshold: 0.25
   fix_res: True

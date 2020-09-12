@@ -8,7 +8,7 @@ class Cfg(dict):
         self.__dict__ = self
 
     @staticmethod
-    def load_config_from_file(fpath, base_config_path="./config/base.yml"):
+    def load_config_from_file(fpath):
         if not os.path.exists(fpath):
             print("Not exists config path")
             return None
@@ -53,7 +53,7 @@ class Cfg(dict):
         config['train']['chunk_sizes'] = chunk_sizes
 
         config['root_dir'] = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir))
-        config['data_dir'] = os.path.join(config['root_dir'], 'data')
+
         config['exp_dir'] = os.path.join(config['root_dir'], 'exp')
         config['save_dir'] = os.path.join(config['exp_dir'], config['exp_id'])
         config['debug_dir'] = os.path.join(config['save_dir'], 'debug')

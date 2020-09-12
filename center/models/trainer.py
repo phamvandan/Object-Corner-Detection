@@ -96,7 +96,7 @@ class Trainer(object):
                            epoch, self.model, self.optimizer)
 
                 with torch.no_grad():
-                    log_dict_val, preds = self.run_epoch('val', epoch, self.data_loader)
+                    log_dict_val, preds = self.run_epoch('val', epoch, self.val_loader)
                 for k, v in log_dict_val.items():
                     self.logger.scalar_summary('val_{}'.format(k), v, epoch)
                     self.logger.write('{} {:8f} | '.format(k, v))
@@ -113,10 +113,10 @@ class Trainer(object):
             if epoch in self.lr_step:
                 save_model(os.path.join(self.save_dir, 'model_{}.pth'.format(epoch)),
                            epoch, self.model, self.optimizer)
-                lr = lr * (0.1 ** (self.lr_step.index(epoch) + 1))
-                print('Drop LR to', lr)
+                self.lr = self.lr * (0.1 ** (self.lr_step.index(epoch) + 1))
+                print('Drop LR to', self.lr)
                 for param_group in self.optimizer.param_groups:
-                    param_group['lr'] = lr
+                    param_group['lr'] = self.lr
         self.logger.close()
 
 

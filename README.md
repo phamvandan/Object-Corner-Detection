@@ -1,7 +1,9 @@
 ## Object-Corner-Detection: Crop an object from four corners
+***Idea***: Corner as keypoint, a Centernet modify version \
 ~ By Hisiter-HUST ~ 
 
 ![demo_1](demo/result_1.png)
+
 
 
 Note:
@@ -10,8 +12,8 @@ Note:
   + ID Detection 
   + ...
 
-Keywords: Vietnamese License Plate Detection, ID Vietnamese Detection
-## 1. Set up environment and dependent package 
+Keywords: Vietnam License Plate Detection, ID Vietnam Detection
+## 1. Set up environment and dependent packages
 - Step 1: Set up conda environment:
 ```bash
 conda env create -f environment.yml
@@ -52,6 +54,11 @@ python train.py --config config/plate.yml
 ```
 
 ## 4. Testing:
+- Download pretrained model: 
+    + Vietnam License plate: https://drive.google.com/file/d/1GZKi1F7nKLT0d7uLLGewkm4LknqDS57F/view?usp=sharing
+    + ID Vietnam: https://drive.google.com/file/d/1igdw06UTw1SZxGa7JUCB-Vm3YiWl1cpt/view?usp=sharing
+    
+- Edit line ***weight*** in file config.yml 
 ```bash
 cd center
 python detect.py --config config/plate.yml --image_path ../img_test/plate.jpg 
@@ -59,5 +66,5 @@ python detect.py --config config/plate.yml --image_path ../img_test/plate.jpg
 
 ## 5. DEMO 
 ![demo_1](demo/result_1.png)
-
 ![demo_2](demo/result_2.png)
+![demo_3](demo/result_3.png)
