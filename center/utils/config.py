@@ -33,7 +33,6 @@ class Cfg(dict):
         """
         config['model']['output_h'] = config['model']['input_h'] // config['model']['down_ratio']
         config['model']['output_w'] = config['model']['input_w'] // config['model']['down_ratio']
-        print(type(config['gpus']))
         config['gpu_str'] = config['gpus']
         config['gpus'] = [int(gpu) for gpu in config['gpus'].split(',')]
         config['gpus'] = [i for i in config['gpus']] if config['gpus'][0] >=0 else [-1]
@@ -55,7 +54,7 @@ class Cfg(dict):
         config['exp_dir'] = os.path.join(config['root_dir'], 'exp')
         config['save_dir'] = os.path.join(config['exp_dir'], config['exp_id'])
         config['debug_dir'] = os.path.join(config['save_dir'], 'debug')
-        print('The output will be saved to ', config['save_dir'])
+        print('The output model will be saved to ', config['save_dir'])
 
         return config
 if __name__ == "__main__":

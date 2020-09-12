@@ -124,7 +124,7 @@ class Trainer(object):
             self.model_with_loss = DataParallel(
                 self.model_with_loss, device_ids=gpus).to(device)
         else:
-            print("Push model to cpu or one gpu ")
+            # print("Push model to cpu or one gpu ")
             self.model_with_loss = self.model_with_loss.to(device)
 
         for state in self.optimizer.state.values():

@@ -31,15 +31,6 @@ class Logger(object):
     args = dict((name, getattr(config, name)) for name in dir(config)
                 if not name.startswith('_'))
     file_name = os.path.join(save_dir, 'opt.yaml')
-    # with open(file_name, 'wt') as opt_file:
-    #   opt_file.write('==> torch version: {}\n'.format(torch.__version__))
-    #   opt_file.write('==> cudnn version: {}\n'.format(
-    #     torch.backends.cudnn.version()))
-    #   opt_file.write('==> Cmd:\n')
-    #   opt_file.write(str(sys.argv))
-    #   opt_file.write('\n==> Opt:\n')
-    #   for k, v in sorted(args.items()):
-    #     opt_file.write('  %s: %s\n' % (str(k), str(v)))
 
     Cfg(config).save(file_name)
           
@@ -53,7 +44,7 @@ class Logger(object):
         os.mkdir(log_dir)
     self.log = open(log_dir + '/log.txt', 'w')
     try:
-      os.system('cp {}/opt.txt {}/'.format(save_dir, log_dir))
+      os.system('cp {}/opt.yaml {}/'.format(save_dir, log_dir))
     except:
       pass
     self.start_line = True

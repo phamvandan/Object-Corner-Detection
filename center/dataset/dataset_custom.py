@@ -151,8 +151,6 @@ class DATASET_CUSTOM(data.Dataset):
       reg = np.zeros((self.max_objs, 2), dtype=np.float32)
       ind = np.zeros((self.max_objs), dtype=np.int64)
       reg_mask = np.zeros((self.max_objs), dtype=np.uint8)
-      print(heatmap_keypoints)
-      print(len(heatmap_keypoints))
       for k in range(len(heatmap_keypoints)):
           cls_id = cls_ids[k]
           ct = np.array(heatmap_keypoints[k])  # center
