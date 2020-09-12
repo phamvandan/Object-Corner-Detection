@@ -5,6 +5,8 @@
 - At root project, run:  
 ```bash
 sh setup.sh
+
+conda activate py36_torch1.4
 ```
 
 ## 2. Dataset format 
@@ -32,4 +34,8 @@ python train.py --config config/plate.yml
 ```
 
 ## 4. Testing:
-- 
+```bash
+cd center
+python detect.py --config config/plate.yml --image_path ../img_test/plate.jpg 
+```
+
