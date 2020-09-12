@@ -10,7 +10,8 @@ conda activate py36_torch1.4
 ```
 
 ## 2. Dataset format 
-- Format COCO
+- Prepare custom dataset: [DATA.md](https://github.com/hisiter97/Object-Corner-Detection/blob/master/data/DATA.md)
+- Format data: COCO
 - Structure
 ```text
 
