@@ -7,7 +7,7 @@ import torch.utils.data as data
 import numpy as np
 import cv2
 import os
-from utils.image import draw_umich_gaussian
+from utils.heatmap import draw_umich_gaussian
 import albumentations as A
 
 class DATASET_CUSTOM(data.Dataset):
@@ -151,7 +151,9 @@ class DATASET_CUSTOM(data.Dataset):
       reg = np.zeros((self.max_objs, 2), dtype=np.float32)
       ind = np.zeros((self.max_objs), dtype=np.int64)
       reg_mask = np.zeros((self.max_objs), dtype=np.uint8)
-      for k in range(heatmap_keypoints):
+      print(heatmap_keypoints)
+      print(len(heatmap_keypoints))
+      for k in range(len(heatmap_keypoints)):
           cls_id = cls_ids[k]
           ct = np.array(heatmap_keypoints[k])  # center
           ct_int = ct.astype(np.int32)  # center integer

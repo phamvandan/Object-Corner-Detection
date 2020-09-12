@@ -14,6 +14,7 @@ import time
 import matplotlib.pyplot as plt
 from utils.config import Cfg
 from utils.debugger import Debugger
+import argparse
 
 class CENTER_MODEL(object):
     def __init__(self, config):
@@ -131,13 +132,14 @@ class CENTER_MODEL(object):
         return warped
 
 if __name__ == "__main__":
-    config = Cfg.load_config_from_file('/home/hisiter/working/CMND/Centernet_custom_v3/center/config/plate.yml')
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", type=str, default='./config/plate.yml')
+    parser.add_argument("--image_path", type=str)
+    args = parser.parse_args()
+    config = Cfg.load_config_from_file(args.config)
     print(config)
     model = CENTER_MODEL(config)
-    paths = glob.glob("/home/hisiter/working/CMND/Centernet_custom_v3/img_test/license/2_2.png")
-    for path in paths:
-    #img_path = "img_test/511.jpg"
-        img = cv2.imread(path)
-        model.detect_obj(img)
+    img = cv2.imread(args.image_path)
+    model.detect_obj(img)
 
 
