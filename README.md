@@ -7,7 +7,7 @@ License Plate Detection, ID Detection, Vietnam License Plate Detection \
         
 ~ By Hisiter-HUST ~ 
 
-![demo_1](demo/result_1.png)
+![demo_1](demo/res_2.png)
 
 
 Note:

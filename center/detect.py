@@ -73,10 +73,10 @@ class CENTER_MODEL(object):
         img_draw = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         colors = {'red':(255,0,0)}
         for center in list_center:
-            img_draw = cv2.circle(img_draw, (center[0], center[1]), radius=8, color=colors['red'], thickness=2)
-
-        # plt.imshow(img_draw)
-        # plt.show()
+            img_draw = cv2.circle(img_draw, (center[0], center[1]), radius=2, color=colors['red'], thickness=2)
+        # cv2.imwrite('img_draw', img_draw)
+        plt.imshow(img_draw)
+        plt.show()
 
         if (len(list_center) >= 4):
             points = self.order_points(np.array(list_center[:4]))
@@ -124,8 +124,8 @@ class CENTER_MODEL(object):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=str, default='center/config/cmnd.yml')
-    parser.add_argument("--image_path", type=str, default='./img_test/1.jpg')
+    parser.add_argument("--config", type=str, default='center/config/plate.yml')
+    parser.add_argument("--image_path", type=str, default='./img_test/license/16.jpg')
     args = parser.parse_args()
     config = Cfg.load_config_from_file(args.config)
     print(config)
