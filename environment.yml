@@ -14,11 +14,9 @@ dependencies:
     - albumentations==0.4.6
     - gdown==3.11.0
     - opencv-python==4.4.0.42
-    - pip==20.2.2
     - pyyaml==5.3.1
     - tqdm==4.48.0
     - progress==1.5
-    - pycocotools-2.0.2
-    -
+    - pycocotools==2.0.2
 prefix: /home/hisiter/anaconda3/envs/py36_torch1.4
 

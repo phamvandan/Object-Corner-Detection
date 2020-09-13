@@ -30,7 +30,7 @@ train:
   lr_step: [90,120]
   num_workers: 4
   val_intervals: 5
-  save_all: False
+  save_all: False         # save after each validation
   metric: 'loss'
   reg_loss: 'l1'      # or sl1
   num_stacks: 1
@@ -38,7 +38,7 @@ train:
   off_weight: 1
 
   master_batch_size: -1
-  resume_path: ''
+  resume_path: ''             # checkpoint path
 
   num_iters: -1
   debug: False

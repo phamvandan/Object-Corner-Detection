@@ -22,7 +22,7 @@ Keywords: Vietnam License Plate Detection, ID Vietnam Detection
 ```bash 
 git clone https://github.com/hisiter97/Object-Corner-Detection.git
 ```
-- Step 2: Set up conda environment:
+- Step 2: Set up conda environment (require conda is installed, if not, [install conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/)):
 ```bash
 conda env create -f environment.yml
 conda activate py36_torch1.4
@@ -78,6 +78,7 @@ python detect.py --config config/plate.yml --image_path ../img_test/plate.jpg
 ![demo_3](demo/result_3.png)
 
 ### **TODO**
+- [ ] Generate point annotation from testing  
 - [ ] Detect object from 2,3 points
 - [ ] Debugger
 - [ ] Invisible keypoint
