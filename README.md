@@ -72,3 +72,8 @@ python detect.py --config config/plate.yml --image_path ../img_test/plate.jpg
 ![demo_1](demo/result_1.png)
 ![demo_2](demo/result_2.png)
 ![demo_3](demo/result_3.png)
+
+### **TODO**
+- [ ] Detect object from 2,3 points
+- [ ] Debugger
+- [ ] Invisible keypoint
