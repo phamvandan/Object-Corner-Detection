@@ -18,12 +18,16 @@ Note:
 
 Keywords: Vietnam License Plate Detection, ID Vietnam Detection
 ## 1. Set up environment and dependent packages
-- Step 1: Set up conda environment:
+- Step 1: Clone repository:
+```bash 
+git clone https://github.com/hisiter97/Object-Corner-Detection.git
+```
+- Step 2: Set up conda environment:
 ```bash
 conda env create -f environment.yml
 conda activate py36_torch1.4
 ```
-- Step 2: Build DCNv2:
+- Step 3: Build DCNv2:
 
 ```bash
 sh build_dcnv2.sh
