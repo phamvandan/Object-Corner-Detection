@@ -1,4 +1,5 @@
 ## Object-Corner-Detection: Crop an object from four corners
+License Plate Detection, ID Detection, Vietnam License Plate Detection \
 ***Idea***: Corners as keypoints, a Centernet modify version \
 ~ By Hisiter-HUST ~ 
 

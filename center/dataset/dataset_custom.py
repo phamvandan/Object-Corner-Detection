@@ -136,7 +136,6 @@ class DATASET_CUSTOM(data.Dataset):
          inp, resized_keypoints, resized_labels = res['image'], res['keypoints'], res['class_labels']
 
          if len(resized_keypoints) != len(keypoints):
-             print("Change num keypoints: ",img_path, img.shape,  cls_ids, resized_labels, keypoints, resized_keypoints)
              cls_ids = []
              for k in range(len(resized_keypoints)):
                  cls_ids.append(resized_labels[k])
@@ -158,7 +157,6 @@ class DATASET_CUSTOM(data.Dataset):
           cls_id = cls_ids[k]
           ct = np.array(heatmap_keypoints[k])  # center
           ct_int = ct.astype(np.int32)  # center integer
-          print(ct-ct_int)
           draw_umich_gaussian(hm[cls_id], ct_int, self.radius)
           ind[k] = ct_int[1] * self.output_w + ct_int[0]
           reg[k] = ct - ct_int
