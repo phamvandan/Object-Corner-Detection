@@ -2,7 +2,7 @@ gpus: '-1' #or -1 for cpu
 exp_id: 'base_detect'         # name of experiment
 
 dataset:
-  data_dir: '../data/plate'
+  data_dir: '../data/cmnd'
   num_classes: &num_classes 2
   label_name: ['corner', 'xx']
   mean: [0.408, 0.447, 0.470]

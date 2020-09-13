@@ -20,7 +20,7 @@ class DATASET_CUSTOM(data.Dataset):
     :param split: train/val
     """
     super(DATASET_CUSTOM, self).__init__()
-    self.data_dir = os.path.join(config['data_dir'], config['dataset']['dataset_name'])
+    self.data_dir = config['dataset']['data_dir']
     self.img_dir = os.path.join(self.data_dir, 'images')
     self.input_h = config['model']['input_h']
     self.input_w = config['model']['input_h']
@@ -99,7 +99,7 @@ class DATASET_CUSTOM(data.Dataset):
     return float("{:.2f}".format(x))
 
   def _cocobox_to_center(self, box):
-      center = np.array([box[0] + box[2] // 2, box[1] + box[3] // 2], dtype=np.uint8)  # [x_center, y_center]
+      center = np.array([box[0] + box[2] // 2, box[1] + box[3] // 2], dtype=np.uint16)  # [x_center, y_center]
 
       return center
 
@@ -134,7 +134,9 @@ class DATASET_CUSTOM(data.Dataset):
          # Resolve loose keypoint when transform
          res = self.transform_train(image=img, keypoints=keypoints, class_labels=cls_ids)
          inp, resized_keypoints, resized_labels = res['image'], res['keypoints'], res['class_labels']
+
          if len(resized_keypoints) != len(keypoints):
+             print("Change num keypoints: ",img_path, img.shape,  cls_ids, resized_labels, keypoints, resized_keypoints)
              cls_ids = []
              for k in range(len(resized_keypoints)):
                  cls_ids.append(resized_labels[k])
@@ -156,6 +158,7 @@ class DATASET_CUSTOM(data.Dataset):
           cls_id = cls_ids[k]
           ct = np.array(heatmap_keypoints[k])  # center
           ct_int = ct.astype(np.int32)  # center integer
+          print(ct-ct_int)
           draw_umich_gaussian(hm[cls_id], ct_int, self.radius)
           ind[k] = ct_int[1] * self.output_w + ct_int[0]
           reg[k] = ct - ct_int

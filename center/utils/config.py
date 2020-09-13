@@ -10,7 +10,7 @@ class Cfg(dict):
     @staticmethod
     def load_config_from_file(fpath):
         if not os.path.exists(fpath):
-            print("Not exists config path")
+            print("Not exists config path: ", fpath)
             return None
 
         with open(fpath, encoding='utf-8') as f:
